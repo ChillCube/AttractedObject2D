@@ -13,5 +13,5 @@ func _process(delta: float) -> void:
 	if distance <= 0.0 or distance > radius:
 		return
 	var t = 1.0 - (distance / radius)
-	var speed_multiplier = curve.sample(t) if curve else t
+	var speed_multiplier = curve.sample(t) if curve else t * t
 	global_position += to_target.normalized() * speed * speed_multiplier * delta
