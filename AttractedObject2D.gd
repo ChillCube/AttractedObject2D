@@ -7,6 +7,8 @@ class_name AttractedObject2D
 @export var curve : Curve;
 @export var kill_at_distance_below : float = 10; ## At -1 it won't kill
 
+signal destroyed(node : Node2D, global_pos : Vector2)
+
 func _process(delta: float) -> void:
 	var target_pos = attracted_to_node.global_position
 	var to_target = target_pos - global_position
@@ -18,4 +20,5 @@ func _process(delta: float) -> void:
 	global_position += to_target.normalized() * speed * speed_multiplier * delta
 	if kill_at_distance_below != -1:
 		if kill_at_distance_below > distance:
+			emit_signal("destroyed",self, global_position)
 			queue_free()
