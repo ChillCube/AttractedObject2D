@@ -5,6 +5,7 @@ class_name AttractedObject2D
 @export var radius : float = 100;
 @export var speed : float = 10;
 @export var curve : Curve;
+@export var kill_at_distance_below : float = 10; ## At -1 it won't kill
 
 func _process(delta: float) -> void:
 	var target_pos = attracted_to_node.global_position
@@ -15,3 +16,6 @@ func _process(delta: float) -> void:
 	var t = 1.0 - (distance / radius)
 	var speed_multiplier = curve.sample(t) if curve else t * t
 	global_position += to_target.normalized() * speed * speed_multiplier * delta
+	if kill_at_distance_below != -1:
+		if kill_at_distance_below > distance:
+			queue_free()
