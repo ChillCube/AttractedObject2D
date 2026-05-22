@@ -20,5 +20,5 @@ func _process(delta: float) -> void:
 	global_position += to_target.normalized() * speed * speed_multiplier * delta
 	if kill_at_distance_below != -1:
 		if kill_at_distance_below > distance:
-			emit_signal("destroyed",self, global_position)
+			emit_signal("destroyed", self, global_position)
 			queue_free()
